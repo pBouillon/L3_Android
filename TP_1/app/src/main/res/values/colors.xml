@@ -7,4 +7,7 @@
     <color name="but_hello">#0059ff</color>
     <color name="but_stopwatch">#536aff</color>
     <color name="but_picture">#849eff</color>
+
+    <color name="but_stopwatch_start">#88ff63</color>
+    <color name="but_stopwatch_stop">#ff6a6a</color>
 </resources>

@@ -4,4 +4,7 @@
     <string name="but_hello">Hello</string>
     <string name="but_stopwatch">Stopwatch</string>
     <string name="but_picture">Picture</string>
+
+    <string name="but_stopwatch_start">Start</string>
+    <string name="but_stopwatch_stop">Stop</string>
 </resources>
