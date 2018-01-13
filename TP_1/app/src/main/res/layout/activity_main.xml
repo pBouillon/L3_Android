@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pierrebouillon.introduction.MainActivity"
+    android:orientation="vertical"
+    android:layout_margin="15dp">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/but_hello"
+        android:text="@string/but_hello"
+        android:background="@color/but_hello"
+        android:layout_marginBottom="5dp" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/but_stopwatch"
+        android:text="@string/but_stopwatch"
+        android:background="@color/but_stopwatch"
+        android:layout_marginBottom="5dp" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/but_picture"
+        android:text="@string/but_picture"
+        android:background="@color/but_picture"
+        android:layout_marginBottom="5dp" />
+
+</LinearLayout>

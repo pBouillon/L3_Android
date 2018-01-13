@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">First Application</string>
+
+    <string name="but_hello">Hello</string>
+    <string name="but_stopwatch">Stopwatch</string>
+    <string name="but_picture">Picture</string>
+</resources>
