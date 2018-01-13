@@ -28,5 +28,17 @@
         android:text="@string/but_picture"
         android:background="@color/but_picture"
         android:layout_marginBottom="5dp" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/but_show_picture"
+        android:text="@string/but_show_picture"
+        android:background="@color/but_show_picture"
+        android:layout_marginBottom="5dp" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
