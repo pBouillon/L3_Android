@@ -1,5 +1,6 @@
 package com.example.pierrebouillon.introduction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +8,9 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -92,5 +95,29 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i("MainActivity.Menu", "Menu addition") ;
+        MenuInflater inflater = getMenuInflater() ;
+        inflater.inflate(R.menu.menu_main, menu) ;
+        Log.i("MainActivity", "Menu added") ;
+        return true ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i("MainActivity.Menu", "Item clicked") ;
+        switch (item.getItemId()) {
+            case R.id.menu_quit:
+                Log.i("MainActivity.Menu", "Quit app from menu") ;
+                finish() ;
+                break ;
+            default:
+                Log.i("MainActivity.Menu", "Default handling") ;
+                return super.onOptionsItemSelected(item) ;
+        }
+        return true ;
     }
 }

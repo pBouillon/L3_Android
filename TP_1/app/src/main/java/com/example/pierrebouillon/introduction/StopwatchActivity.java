@@ -28,7 +28,8 @@ public class StopwatchActivity extends AppCompatActivity {
 
         startButton.setOnClickListener(v -> {
             toggle(startButton, stopButton) ;
-            begin[0] = GregorianCalendar.getInstance().getTimeInMillis() ;
+            // begin[0] = GregorianCalendar.getInstance().getTimeInMillis() ;
+            begin[0] = System.currentTimeMillis() ;
         });
 
         stopButton.setOnClickListener(v -> {
@@ -44,7 +45,7 @@ public class StopwatchActivity extends AppCompatActivity {
     }
 
     private int getElapsed(long timestamp) {
-        long now    = GregorianCalendar.getInstance().getTimeInMillis() ;
+        long now = System.currentTimeMillis() ;
         return (int) (now - timestamp) / 1000 ;
     }
 }

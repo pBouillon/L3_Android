@@ -8,4 +8,6 @@
 
     <string name="but_stopwatch_start">Start</string>
     <string name="but_stopwatch_stop">Stop</string>
+
+    <string name="menu_quit">Quit</string>
 </resources>
