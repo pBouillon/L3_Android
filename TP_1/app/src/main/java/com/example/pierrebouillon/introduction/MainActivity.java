@@ -24,11 +24,11 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String LOCALE_EN = "en" ;
-    public static String LOCALE_FR = "fr" ;
+    private final static String LOCALE_EN = "en" ;
+    private final static String LOCALE_FR = "fr" ;
 
-    public static int MAX_COMPRESSION = 100 ;
-    public static int PHOTO ;
+    private final static int MAX_COMPRESSION = 100 ;
+    private static int PHOTO ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         return true ;
     }
 
-    public void setLocale(String lang) {
+    private void setLocale(String lang) {
         Configuration conf = getResources().getConfiguration() ;
         conf.locale = new Locale(lang) ;
 

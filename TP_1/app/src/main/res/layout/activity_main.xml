@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     tools:context="com.example.pierrebouillon.introduction.MainActivity">
 
@@ -13,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/but_standart"
+        android:background="@color/but_standard"
         android:text="@string/but_hello"
         android:textColor="@color/fontColor" />
 
@@ -22,7 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/but_standart"
+        android:background="@color/but_standard"
         android:text="@string/but_stopwatch"
         android:textColor="@color/fontColor" />
 
@@ -31,7 +30,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/but_standart"
+        android:background="@color/but_standard"
         android:text="@string/but_picture"
         android:textColor="@color/fontColor" />
 
@@ -40,7 +39,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/but_standart"
+        android:background="@color/but_standard"
         android:text="@string/but_show_picture"
         android:textColor="@color/fontColor" />
 
@@ -48,6 +47,7 @@
         android:id="@+id/imageView"
         android:layout_width="380dp"
         android:layout_height="270dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/img_view_desc" />
 
 </LinearLayout>

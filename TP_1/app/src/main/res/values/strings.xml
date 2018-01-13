@@ -3,6 +3,7 @@
     <string name="but_stopwatch">Stopwatch</string>
     <string name="but_picture">Picture</string>
     <string name="but_show_picture">Show last picture</string>
+    <string name="img_view_desc">Show last picture taken</string>
 
     <string name="but_stopwatch_start">Start</string>
     <string name="but_stopwatch_stop">Stop</string>
