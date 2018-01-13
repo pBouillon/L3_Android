@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity" >
 
+    <group android:id="@+id/menu_group_languages">
+        <item
+            android:id="@+id/menu_fr"
+            android:orderInCategory="80"
+            android:title="@string/menu_fr" />
+        <item
+            android:id="@+id/menu_en"
+            android:orderInCategory="90"
+            android:title="@string/menu_en" />
+    </group>
+
     <item
         android:id="@+id/menu_quit"
         android:title="@string/menu_quit"

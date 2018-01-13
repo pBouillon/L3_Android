@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="but_hello">Bonjour</string>
+    <string name="but_stopwatch">Chronomètre</string>
+    <string name="but_picture">Photo</string>
+    <string name="but_show_picture">Afficher la dernière photo</string>
+
+    <string name="but_stopwatch_start">Debut</string>
+    <string name="but_stopwatch_stop">Stop</string>
+
+    <string name="menu_en">EN</string>
+    <string name="menu_fr">FR</string>
+    <string name="menu_quit">Quitter</string>
+
+    <string name="app_name">Première application</string>
+</resources>

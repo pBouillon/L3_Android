@@ -1,12 +1,13 @@
 package com.example.pierrebouillon.introduction;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,8 +20,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static String LOCALE_EN = "en" ;
+    public static String LOCALE_FR = "fr" ;
 
     public static int MAX_COMPRESSION = 100 ;
     public static int PHOTO ;
@@ -114,10 +119,28 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("MainActivity.Menu", "Quit app from menu") ;
                 finish() ;
                 break ;
+            case R.id.menu_en:
+                Log.i("MainActivity.Menu", item.getTitle() + " version requested") ;
+                setLocale(LOCALE_EN) ;
+                break ;
+            case R.id.menu_fr:
+                Log.i("MainActivity.Menu", item.getTitle() + " version requested") ;
+                setLocale(LOCALE_FR) ;
+                break ;
             default:
                 Log.i("MainActivity.Menu", "Default handling") ;
                 return super.onOptionsItemSelected(item) ;
         }
         return true ;
+    }
+
+    public void setLocale(String lang) {
+        Configuration conf = getResources().getConfiguration() ;
+        conf.locale = new Locale(lang) ;
+
+        DisplayMetrics dm  = getResources().getDisplayMetrics() ;
+        getResources().updateConfiguration(conf, dm) ;
+
+        recreate() ; // recreate Activity with new Locale
     }
 }
