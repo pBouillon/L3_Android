@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="com.example.pierrebouillon.introduction.StopwatchActivity"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/colorPrimaryDark">
 
     <Button
         android:layout_margin="5dp"

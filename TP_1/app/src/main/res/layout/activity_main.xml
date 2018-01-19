@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    tools:context="com.example.pierrebouillon.introduction.MainActivity">
+    tools:context="com.example.pierrebouillon.introduction.MainActivity"
+    android:background="@color/colorPrimaryDark">
 
     <Button
         android:id="@+id/but_hello"
