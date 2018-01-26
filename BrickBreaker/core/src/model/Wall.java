@@ -1,12 +1,14 @@
 package model;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import static model.Brick.*;
 
-public class Wall {
-    private int nbL, nbC ; // col, lignes
+class Wall {
+    private final static int BASE_X = 75 ;
+    private final static int BASE_Y = 400 ;
+
+    private int nbL, nbC ;
 
     private Brick[][] wall ;
 
@@ -18,7 +20,7 @@ public class Wall {
             {Vide, Bleue, Vide, Vide, Bleue, Bleue, Vide, Vide, Bleue, Vide}
     } ;
 
-    public Wall () {
+    Wall() {
         nbC = wallInit.length ;
         nbL = wallInit[0].length ;
 
@@ -26,19 +28,21 @@ public class Wall {
     }
 
     private void setBricks(boolean isRandom) {
-        wall = wallInit ;
+        if (isRandom) {
+
+        } else {
+            wall = wallInit ;
+        }
     }
 
     void draw(SpriteBatch sb) {
         for (int x = 0; x < nbC; ++x) {
             for (int y = 0; y < nbL; ++y) {
-                if (wall[x][y].getTex() == null) {
-                    continue ;
-                }
+                if (wall[x][y].getTex() == null) {continue;}
                 sb.draw (
                         wall[x][y].getTex(),
-                        200 + (50 * y),
-                        100 + (50 * x)
+                        BASE_X + wall[x][y].getTex().getWidth()  * y,
+                        BASE_Y + wall[x][y].getTex().getHeight() * x
                 ) ;
             }
         }

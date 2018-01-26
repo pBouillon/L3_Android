@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import model.GameWorld;
 
 public class GameScreen extends ScreenAdapter {
+    GameWorld   gw ;
     SpriteBatch sb ;
-    GameWorld gw ;
 
     public GameScreen() {
         sb = new SpriteBatch() ;
@@ -18,7 +18,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         super.render(delta);
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(102, 255, 177, 11) ;
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sb.begin();
         gw.draw(sb);
