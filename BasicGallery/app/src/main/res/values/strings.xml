@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Basic Gallery</string>
-    <string name="title_menu">Actions</string>
-    <string name="but_exit">Quit</string>
-    <string name="but_take">Take</string>
-</resources>
