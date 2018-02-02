@@ -2,49 +2,49 @@ package model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import static model.Brick.*;
+import static model.Brick.BLUE_TEX;
+import static model.Brick.BROKEN_BRICK_LIFE;
 
 class Wall {
-    private final static int BASE_X = 75 ;
-    private final static int BASE_Y = 400 ;
+    private final static int BASE_X = 50 ;
+    private final static int BASE_Y = 555 ;
 
     private int nbL, nbC ;
 
     private Brick[][] wall ;
 
     private static final Brick[][] wallInit = {
-            {Bleue, Verte, Bleue, VerteAbimee, Bleue, Bleue, VerteAbimee, Bleue, Verte, Bleue},
-            {Bleue, Bleue, Verte, Bleue, VerteAbimee, VerteAbimee, Bleue, Verte, Bleue, Bleue},
-            {Bleue, Bleue, Bleue, Verte, Bleue, Bleue, Verte, Bleue, Bleue, Bleue},
-            {Bleue, Bleue, Bleue, Bleue, Verte, Verte, Bleue, Bleue, Bleue, Bleue},
-            {Vide, Bleue, Vide, Vide, Bleue, Bleue, Vide, Vide, Bleue, Vide}
+            {new BlueBrick(), new GreenBrick(), new BlueBrick(), new GreenBrick(BROKEN_BRICK_LIFE), new BlueBrick(), new BlueBrick(), new GreenBrick(BROKEN_BRICK_LIFE), new BlueBrick(),  new GreenBrick(BROKEN_BRICK_LIFE), new BlueBrick()},
+            {new BlueBrick(), new BlueBrick(), new GreenBrick(), new BlueBrick(), new GreenBrick(BROKEN_BRICK_LIFE), new GreenBrick(BROKEN_BRICK_LIFE), new BlueBrick(),  new GreenBrick(), new BlueBrick(), new BlueBrick()},
+            {new BlueBrick(), new BlueBrick(), new BlueBrick(),  new GreenBrick(), new BlueBrick(), new BlueBrick(),  new GreenBrick(), new BlueBrick(), new BlueBrick(), new BlueBrick()},
+            {new BlueBrick(), new BlueBrick(), new BlueBrick(), new BlueBrick(),  new GreenBrick(),  new GreenBrick(), new BlueBrick(), new BlueBrick(), new BlueBrick(), new BlueBrick()},
+            {null, new BlueBrick(), null, null, new BlueBrick(), new BlueBrick(), null, null, new BlueBrick(), null}
     } ;
 
     Wall() {
-        nbC = wallInit.length ;
-        nbL = wallInit[0].length ;
+        nbL = wallInit.length ;
+        nbC = wallInit[0].length ;
 
         setBricks(false) ;
     }
 
     private void setBricks(boolean isRandom) {
         if (isRandom) {
-
         } else {
             wall = wallInit ;
         }
     }
 
     void draw(SpriteBatch sb) {
-        for (int x = 0; x < nbC; ++x) {
-            for (int y = 0; y < nbL; ++y) {
-                if (wall[x][y].getTex() == null) {continue;}
-                sb.draw (
-                        wall[x][y].getTex(),
-                        BASE_X + wall[x][y].getTex().getWidth()  * y,
-                        BASE_Y + wall[x][y].getTex().getHeight() * x
-                ) ;
+        for (int i = 0; i < nbL; ++i) {
+            for (int j = 0; j < nbC; ++j) {
+                if (wall[i][j] == null) {continue;}
+                wallInit[i][j].setPosX(BASE_X + BLUE_TEX.getWidth()  * j);
+                wallInit[i][j].setPosY(BASE_Y - BLUE_TEX.getHeight()  * i);
+                wallInit[i][j].draw(sb) ;
             }
         }
+
+
     }
 }
