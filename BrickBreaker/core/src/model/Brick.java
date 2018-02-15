@@ -2,6 +2,7 @@ package model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 
 
@@ -19,9 +20,10 @@ public abstract class Brick {
 
     private Texture tex = null ;
 
-    private int vie  = 0 ;
-    private int posX = 0 ;
-    private int posY = 0 ;
+    private int  vie  = 0 ;
+    private int  posX = 0 ;
+    private int  posY = 0 ;
+    private Body body ;
 
     Brick (int coups, Texture _tex) {
         if (_tex == GREEN_TEX) {

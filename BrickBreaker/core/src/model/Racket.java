@@ -21,13 +21,13 @@ public class Racket {
 
     Racket() {
         pos = new Vector2 (
-            (TEXT_WIDTH - 50) / 2 - RACK_WIDTH / 2,
-            50
+                (TEXT_WIDTH - 50) / 2 - RACK_WIDTH / 2,
+                50
         ) ;
         height = TextureFactory.getTexRacket()
-                                .getHeight() ;
+                .getHeight() ;
         width  = TextureFactory.getTexRacket()
-                                .getWidth() ;
+                .getWidth() ;
     }
 
     void draw(SpriteBatch sb) {
