@@ -20,23 +20,31 @@ class Background {
             new Vector2[] {
                 // bas gauche
                 new Vector2 (
-                    TextureFactory.getTexBorder().getHeight(),
+                    TextureFactory.getTexBorder().getWidth() - Ball.RAYON,
                     0
                 ),
                 // haut gauche
                 new Vector2 (
-                    TextureFactory.getTexBorder().getHeight(),
+                    TextureFactory.getTexBorder().getWidth()
+                            - Ball.RAYON,
                     TextureFactory.getTexBack().getHeight()
                            - TextureFactory.getTexBorder().getHeight()
+                           - Ball.RAYON
                 ),
-                // haut droite
+                // haut droit
                 new Vector2 (
-                        TextureFactory.getTexBack().getWidth()-2*TextureFactory.getTexBorder().getHeight(),
-                        TextureFactory.getTexBack().getHeight()-TextureFactory.getTexBorder().getHeight()
+                        TextureFactory.getTexBack().getWidth()
+                                - 2 * TextureFactory.getTexBorder().getHeight()
+                                - Ball.RAYON,
+                        TextureFactory.getTexBack().getHeight()
+                                - TextureFactory.getTexBorder().getHeight()
+                                - Ball.RAYON
                 ),
-                // bas droite
+                // bas droit
                 new Vector2 (
-                        TextureFactory.getTexBack().getWidth()-2*TextureFactory.getTexBorder().getHeight(),
+                        TextureFactory.getTexBack().getWidth()
+                                - 2 * TextureFactory.getTexBorder().getHeight()
+                                - Ball.RAYON,
                     0
                 )
             }

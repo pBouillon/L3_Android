@@ -2,6 +2,7 @@ package model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 
 public class Racket {
@@ -19,15 +20,87 @@ public class Racket {
     private int height ;
     private int width ;
 
-    Racket() {
+    private Body bgauche ;
+    private Body bmilieu ;
+    private Body bdroite ;
+
+    Racket(GameWorld gameWorld) {
         pos = new Vector2 (
                 (TEXT_WIDTH - 50) / 2 - RACK_WIDTH / 2,
                 50
         ) ;
+
         height = TextureFactory.getTexRacket()
                 .getHeight() ;
+
         width  = TextureFactory.getTexRacket()
                 .getWidth() ;
+
+        gw = gameWorld ;
+
+        int rayonBoule = TextureFactory.getTexRacket().getHeight() / 2 ;
+
+        // bgauche
+        BodyDef bodyDef1 = new BodyDef() ;
+        bodyDef1.type    = BodyDef.BodyType.StaticBody ;
+        bodyDef1.fixedRotation = false ;
+        bodyDef1.position.set(pos.x, pos.y) ;
+        bgauche = gw.getWorld().createBody(bodyDef1) ;
+
+        CircleShape shapeBGauche = new CircleShape() ;
+        shapeBGauche.setRadius(rayonBoule) ;
+
+        FixtureDef fixtureDef1  = new FixtureDef() ;
+        fixtureDef1.shape       = shapeBGauche ;
+        fixtureDef1.density     = 1 ;
+        fixtureDef1.restitution = 1 ;
+        fixtureDef1.friction    = 0 ;
+        bgauche.createFixture(fixtureDef1) ;
+
+        // bmilieu
+        int heightRack = TextureFactory.getTexRacket().getHeight();
+        int widthRack  = TextureFactory.getTexRacket().getWidth() ;
+
+        Vector2[] tab = new Vector2[4];
+        //bas à gauche
+        tab[0] = new Vector2(pos.x + rayonBoule * 2, pos.y);
+        //haut à gauche
+        tab[1] = new Vector2(pos.x + rayonBoule * 2, pos.y + heightRack);
+        //haut à droite
+        tab[2] = new Vector2(pos.x + widthRack - rayonBoule * 2, pos.y + heightRack);
+        //bas à droite
+        tab[3] = new Vector2(pos.x + widthRack - rayonBoule * 2, pos.y);
+
+        PolygonShape shapeBMilieu = new PolygonShape();
+        shapeBMilieu.set(tab);
+
+        BodyDef bodyDef2 = new BodyDef();
+        bodyDef2.type = BodyDef.BodyType.StaticBody;
+        bmilieu = gw.getWorld().createBody(bodyDef2);
+
+        FixtureDef fixtureDef2 = new FixtureDef();
+        fixtureDef2.shape = shapeBMilieu;
+        fixtureDef2.density = 1;
+        fixtureDef2.restitution = 1;
+        fixtureDef2.friction = 0;
+        bmilieu.createFixture(fixtureDef2);
+
+        // bdroite
+        BodyDef bodyDef3 = new BodyDef() ;
+        bodyDef3.type    = BodyDef.BodyType.StaticBody ;
+        bodyDef3.fixedRotation = false ;
+        bodyDef3.position.set(pos.x + widthRack - rayonBoule * 2, pos.y) ;
+        bdroite = gw.getWorld().createBody(bodyDef3) ;
+
+        CircleShape shapeBDroite =  new CircleShape() ;
+        shapeBDroite.setRadius(rayonBoule) ;
+
+        FixtureDef fixtureDef3  = new FixtureDef() ;
+        fixtureDef3.shape       = shapeBDroite ;
+        fixtureDef3.density     = 1 ;
+        fixtureDef3.restitution = 1 ;
+        fixtureDef3.friction    = 0 ;
+        bdroite.createFixture(fixtureDef3) ;
     }
 
     void draw(SpriteBatch sb) {
@@ -77,6 +150,13 @@ public class Racket {
         }
 
         setPos(newPos, pos.y);
+
+        bgauche.setTransform(pos.x, pos.y, 0);
+        bmilieu.setTransform(pos.x, pos.y, 0);
+        bdroite.setTransform(pos.x, pos.y, 0);
     }
 
+    public Body[] getBody() {
+        return new Body[]{bgauche, bmilieu, bdroite};
+    }
 }

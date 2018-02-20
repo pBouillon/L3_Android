@@ -56,4 +56,8 @@ class Ball {
     void setSpeedStatic() {
         body.setLinearVelocity(0, 0);
     }
+
+    public Body getBody() {
+        return body;
+    }
 }

@@ -13,11 +13,17 @@ public class GreenBrick extends Brick {
     }
 
     @Override
+    public void decreaseLife(){
+        super.decreaseLife();
+        setTex(BROK_GREEN_TEX) ;
+    }
+
+    @Override
     public void draw(SpriteBatch sb) {
         sb.draw (
                 getTex(),
                 getPosX(),
                 getPosY()
-        );
+        ) ;
     }
 }
