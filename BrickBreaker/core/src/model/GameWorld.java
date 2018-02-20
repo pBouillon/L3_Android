@@ -39,7 +39,7 @@ public class GameWorld {
         wall = new Wall(this) ;
         background = new Background(this) ;
 
-        billes = new ArrayList<>() ;
+        billes = new ArrayList<Ball>() ;
         billes.add (new Ball (
                 new Vector2 (
                         racket.getPos().x + racket.getWidth() / 2 - RAYON,
@@ -97,8 +97,8 @@ public class GameWorld {
                 }
 
                 // Other
-                if (!isRack
-                        ) {
+                if (!isRack) {
+                    System.out.println(currentBall.getBody().getLinearVelocity());
                     if (norm.getNormal().x != 0) {
                         currentBall.getBody().setLinearVelocity (
                                 - currentBall.getBody().getLinearVelocity().x,
@@ -109,7 +109,7 @@ public class GameWorld {
                     if (norm.getNormal().y != 0) {
                         currentBall.getBody().setLinearVelocity (
                                 currentBall.getBody().getLinearVelocity().x,
-                                -  currentBall.getBody().getLinearVelocity().y
+                                - currentBall.getBody().getLinearVelocity().y
                         ) ;
                     }
 

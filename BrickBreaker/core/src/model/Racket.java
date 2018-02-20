@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 
+import static model.Ball.RAYON;
+
 public class Racket {
 
     public  static final int MOV_LEFT  = 0 ;
@@ -44,7 +46,7 @@ public class Racket {
         BodyDef bodyDef1 = new BodyDef() ;
         bodyDef1.type    = BodyDef.BodyType.StaticBody ;
         bodyDef1.fixedRotation = false ;
-        bodyDef1.position.set(pos.x, pos.y) ;
+        bodyDef1.position.set(pos.x + RAYON, pos.y + RAYON) ;
         bgauche = gw.getWorld().createBody(bodyDef1) ;
 
         CircleShape shapeBGauche = new CircleShape() ;
@@ -89,7 +91,7 @@ public class Racket {
         BodyDef bodyDef3 = new BodyDef() ;
         bodyDef3.type    = BodyDef.BodyType.StaticBody ;
         bodyDef3.fixedRotation = false ;
-        bodyDef3.position.set(pos.x + widthRack - rayonBoule * 2, pos.y) ;
+        bodyDef3.position.set(pos.x + widthRack - RAYON, pos.y + RAYON) ;
         bdroite = gw.getWorld().createBody(bodyDef3) ;
 
         CircleShape shapeBDroite =  new CircleShape() ;
@@ -116,7 +118,7 @@ public class Racket {
         this.pos.y = y ;
     }
 
-    public int getHeight() {
+    int getHeight() {
         return height;
     }
 
@@ -124,7 +126,7 @@ public class Racket {
         this.height = height;
     }
 
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 
@@ -134,29 +136,48 @@ public class Racket {
 
     public void update(int mov) {
         float newPos = pos.x ;
+        int step ;
 
         if (mov == MOV_RIGHT) {
-            newPos += MOV_SPACE ;
+            step = MOV_SPACE ;
         } else {
-            newPos -= MOV_SPACE ;
+            step = - MOV_SPACE ;
         }
+        newPos += step ;
 
         if (newPos < BORDER_WIDTH) {
             newPos = BORDER_WIDTH ;
+            step = 0 ;
         }
 
         if (newPos > TEXT_WIDTH - BORDER_WIDTH * 2 - RACK_WIDTH) {
             newPos = TEXT_WIDTH - BORDER_WIDTH * 2 - RACK_WIDTH ;
+            step = 0 ;
         }
 
         setPos(newPos, pos.y);
 
-        bgauche.setTransform(pos.x, pos.y, 0);
-        bmilieu.setTransform(pos.x, pos.y, 0);
-        bdroite.setTransform(pos.x, pos.y, 0);
+        bgauche.setTransform (
+                bgauche.getPosition().x + step,
+                bgauche.getPosition().y,
+                0
+        ) ;
+        bmilieu.setTransform (
+                bmilieu.getPosition().x + step,
+                bmilieu.getPosition().y,
+                0 ) ;
+
+        bdroite.setTransform (
+                bdroite.getPosition().x + step,
+                bdroite.getPosition().y,
+                0
+        ) ;
     }
 
-    public Body[] getBody() {
-        return new Body[]{bgauche, bmilieu, bdroite};
+    Body[] getBody() {
+        return new Body[] {
+                bgauche,
+                bmilieu,
+                bdroite } ;
     }
 }

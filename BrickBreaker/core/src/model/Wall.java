@@ -53,6 +53,7 @@ class Wall {
     }
 
     void destroy(Fixture toDestroy) {
+        /*
         for (Brick[] row : wall) {
             for (int j = 0; j < wall[0].length; ++j) {
                 if (row[j].getBody() == toDestroy.getBody()) {
@@ -65,5 +66,6 @@ class Wall {
                 }
             }
         }
+        */
     }
 }

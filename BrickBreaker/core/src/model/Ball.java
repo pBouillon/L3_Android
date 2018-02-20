@@ -22,10 +22,11 @@ class Ball {
         bodyDef1.type    = BodyDef.BodyType.DynamicBody ;
         bodyDef1.bullet  = true ;
         bodyDef1.fixedRotation = false ;
-        bodyDef1.position.set(_pos) ;
+        bodyDef1.position.set(_pos.x, _pos.y) ;
         body = gw.getWorld().createBody(bodyDef1) ;
 
         CircleShape shape =  new CircleShape() ;
+        shape.setPosition(new Vector2(RAYON, RAYON));
         shape.setRadius(RAYON) ;
 
         FixtureDef fixtureDef1  = new FixtureDef() ;
