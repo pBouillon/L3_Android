@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 
+import java.util.ArrayList;
+
 import static model.Ball.RAYON;
 
 public class Racket {
@@ -174,10 +176,12 @@ public class Racket {
         ) ;
     }
 
-    Body[] getBody() {
-        return new Body[] {
-                bgauche,
-                bmilieu,
-                bdroite } ;
+    ArrayList<Body> getBody() {
+        ArrayList<Body> bodies = new ArrayList<Body>() ;
+        bodies.add(bdroite) ;
+        bodies.add(bmilieu) ;
+        bodies.add(bgauche) ;
+
+        return bodies ;
     }
 }

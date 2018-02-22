@@ -5,7 +5,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 
 import static model.Brick.BLUE_TEX;
 import static model.Brick.BROKEN_BRICK_LIFE;
-import static model.Brick.GREEN_BRICK_LIFE;
 
 class Wall {
     private final static int BASE_X = 50 ;
@@ -31,6 +30,15 @@ class Wall {
         gw = gameWorld ;
 
         setBricks(false) ;
+
+        for (int i = 0; i < nbL; ++i) {
+            for (int j = 0; j < nbC; ++j) {
+                if (wall[i][j] == null) {continue;}
+                wallInit[i][j].setPosX(BASE_X + BLUE_TEX.getWidth()  * j)  ;
+                wallInit[i][j].setPosY(BASE_Y - BLUE_TEX.getHeight()  * i) ;
+                wallInit[i][j].addPhysique(gw) ;
+            }
+        }
     }
 
     private void setBricks(boolean isRandom) {
@@ -44,21 +52,18 @@ class Wall {
         for (int i = 0; i < nbL; ++i) {
             for (int j = 0; j < nbC; ++j) {
                 if (wall[i][j] == null) {continue;}
-                wallInit[i][j].setPosX(BASE_X + BLUE_TEX.getWidth()  * j)  ;
-                wallInit[i][j].setPosY(BASE_Y - BLUE_TEX.getHeight()  * i) ;
                 wallInit[i][j].draw(sb) ;
-                wallInit[i][j].addPhysique(gw) ;
             }
         }
     }
 
     void destroy(Fixture toDestroy) {
-        /*
         for (Brick[] row : wall) {
             for (int j = 0; j < wall[0].length; ++j) {
+                if (row[j] == null) { continue ; }
                 if (row[j].getBody() == toDestroy.getBody()) {
                     row[j].decreaseLife() ;
-                    if (row[j].getVie() == 0) {
+                    if (row[j].getLife() == 0) {
                         gw.getWorld().destroyBody(row[j].getBody()) ;
                         row[j] = null ;
                     }
@@ -66,6 +71,5 @@ class Wall {
                 }
             }
         }
-        */
     }
 }

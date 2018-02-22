@@ -46,7 +46,7 @@ public abstract class Brick {
 
     public abstract void draw (SpriteBatch sb) ;
 
-    public int getVie() {
+    public int getLife() {
         return vie;
     }
 

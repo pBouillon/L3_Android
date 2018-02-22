@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 
 class Background {
+    private Body body;
+
     Background(GameWorld _gw) {
         Body body ;
 
@@ -55,5 +57,9 @@ class Background {
 
     void draw(SpriteBatch sb) {
         sb.draw(TextureFactory.getTexBack(), 0, 0) ;
+    }
+
+    public Body getBody() {
+        return body;
     }
 }

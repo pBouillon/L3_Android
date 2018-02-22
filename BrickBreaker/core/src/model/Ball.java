@@ -14,9 +14,11 @@ class Ball {
     private Body body ;
 
     GameWorld gw ;
+    Vector2 pos ;
 
     Ball(Vector2 _pos, GameWorld _gw) {
-        gw = _gw ;
+        gw  = _gw ;
+        pos = _pos ;
 
         BodyDef bodyDef1 = new BodyDef() ;
         bodyDef1.type    = BodyDef.BodyType.DynamicBody ;
@@ -60,5 +62,9 @@ class Ball {
 
     public Body getBody() {
         return body;
+    }
+
+    public Vector2 getPosition() {
+        return pos ;
     }
 }

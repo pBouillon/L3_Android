@@ -24,11 +24,13 @@ public class GameWorld {
     private World world ;
 
     private ArrayList<Ball> billes ;
+    private int currentBall ;
 
     private Fixture toDestroy ;
 
     public GameWorld (GameScreen _gs) {
         gs = _gs ;
+        currentBall = 0 ;
 
         world = new World (
                     new Vector2 (0,0),
@@ -70,50 +72,45 @@ public class GameWorld {
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-                WorldManifold norm = contact.getWorldManifold() ;
-                Fixture otherObj ;
+                Vector2 normal = contact.getWorldManifold().getNormal();
 
-                if (contact.getFixtureA().getBody() == billes.get(0).getBody()) {
-                    otherObj = contact.getFixtureB() ;
+                Fixture hitten ;
+                Ball current = billes.get(currentBall) ;
+
+                if (contact.getFixtureA().getBody() == billes.get(currentBall).getBody()) {
+                    hitten = contact.getFixtureB();
+                } else {
+                    hitten = contact.getFixtureA();
                 }
 
-                else {
-                    otherObj = contact.getFixtureA() ;
+                // HACKS ---
+                if (normal.x != 0) {
+                    current.getBody().setLinearVelocity (
+                            - current.getBody().getLinearVelocity().x,
+                            current.getBody().getLinearVelocity().y
+                    ) ;
                 }
 
-                Ball currentBall = billes.get(0) ;
-
-                boolean isRack = false ;
-                // Racket
-                for (Body bRack : racket.getBody()) {
-                    if (otherObj.getBody() == bRack) {
-                        currentBall.getBody().setLinearVelocity (
-                                currentBall.getBody().getLinearVelocity().x * 2,
-                                - currentBall.getBody().getLinearVelocity().y * 2
-                        ) ;
-                        isRack = true ;
-                        break ;
-                    }
+                if (normal.y != 0) {
+                    current.getBody().setLinearVelocity (
+                            current.getBody().getLinearVelocity().x,
+                            - current.getBody().getLinearVelocity().y
+                    ) ;
                 }
+                // --- HACKS
 
-                // Other
-                if (!isRack) {
-                    System.out.println(currentBall.getBody().getLinearVelocity());
-                    if (norm.getNormal().x != 0) {
-                        currentBall.getBody().setLinearVelocity (
-                                - currentBall.getBody().getLinearVelocity().x,
-                                currentBall.getBody().getLinearVelocity().y
-                        ) ;
-                    }
+                if (hitten.getBody() == background.getBody()) {
 
-                    if (norm.getNormal().y != 0) {
-                        currentBall.getBody().setLinearVelocity (
-                                currentBall.getBody().getLinearVelocity().x,
-                                - currentBall.getBody().getLinearVelocity().y
-                        ) ;
-                    }
+                }
+                else if (racket.getBody().contains(hitten.getBody())) {
 
-                    toDestroy = otherObj ;
+                } else {
+//                    current.getBody().applyForce (
+//                            normal,
+//                            current.getPosition(),
+//                            true
+//                    ) ;
+                    toDestroy = hitten ;
                 }
             }
 
