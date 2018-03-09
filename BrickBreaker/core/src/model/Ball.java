@@ -2,6 +2,7 @@ package model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -16,14 +17,14 @@ class Ball {
     GameWorld gw ;
     Vector2 pos ;
 
-    Ball(Vector2 _pos, GameWorld _gw) {
+    Ball (Vector2 _pos, GameWorld _gw) {
         gw  = _gw ;
         pos = _pos ;
 
         BodyDef bodyDef1 = new BodyDef() ;
         bodyDef1.type    = BodyDef.BodyType.DynamicBody ;
         bodyDef1.bullet  = true ;
-        bodyDef1.fixedRotation = false ;
+        bodyDef1.fixedRotation = true ;
         bodyDef1.position.set(_pos.x, _pos.y) ;
         body = gw.getWorld().createBody(bodyDef1) ;
 
@@ -56,15 +57,33 @@ class Ball {
         body.setLinearVelocity(rdm, 200);
     }
 
-    void setSpeedStatic() {
+    private void setSpeedStatic() {
         body.setLinearVelocity(0, 0);
     }
 
-    public Body getBody() {
+    Body getBody() {
         return body;
     }
 
     public Vector2 getPosition() {
         return pos ;
+    }
+
+    boolean isOut() {
+        return getBody().getPosition().y < 0 - RAYON * 4;
+    }
+
+    void reset(Racket racket) {
+        getBody().setTransform (
+                new Vector2 (
+                        racket.getPos().x + racket.getWidth() / 2 - RAYON,
+                        racket.getPos().y + racket.getHeight()
+                ),
+                0
+        ) ;
+    }
+
+    void dispose() {
+        gw.getWorld().destroyBody(getBody()) ;
     }
 }

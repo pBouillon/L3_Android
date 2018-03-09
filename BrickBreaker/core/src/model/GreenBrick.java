@@ -19,6 +19,11 @@ public class GreenBrick extends Brick {
     }
 
     @Override
+    void dispose (GameWorld gw) {
+        gw.getWorld().destroyBody(getBody()) ;
+    }
+
+    @Override
     public void draw(SpriteBatch sb) {
         sb.draw (
                 getTex(),

@@ -43,7 +43,13 @@ class Background {
                         TextureFactory.getTexBack().getWidth()
                                 - 2 * TextureFactory.getTexBorder().getHeight(),
                     0
-                )
+                ),
+
+                // DEBUG
+//                new Vector2 (
+//                        TextureFactory.getTexBorder().getWidth(),
+//                        0
+//                )
             }
         ) ;
 

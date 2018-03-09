@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.Timer;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 import model.GameState;
 import model.GameWorld;
@@ -19,12 +20,22 @@ public class GameScreen extends ScreenAdapter {
     private OrthographicCamera cam;
     private Box2DDebugRenderer debugRenderer;
 
+    private Timer.Task timer ;
+
     public GameScreen() {
         gw = new GameWorld(this) ;
         sb = new SpriteBatch() ;
         state = new GameState() ;
 
-        cam= new OrthographicCamera(1150, 700);
+        timer = new Timer.Task() {
+            @Override
+            public void run() {
+                gw.reboot (state) ;
+                state.setState(GameState.State.Running);
+            }
+        } ;
+
+        cam = new OrthographicCamera(1150, 700);
 
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
@@ -32,6 +43,18 @@ public class GameScreen extends ScreenAdapter {
     }
 
     private void update() {
+        /* States changes */
+        if (gw.isWallEmpty()) {
+            state.setState(GameState.State.Won) ;
+        }
+        else if (gw.isBallLoss()) {
+            state.setState(GameState.State.BallLoss) ;
+            if (gw.remainingBalls() - 1 == 0) {
+                state.setState(GameState.State.GameOver) ;
+            }
+        }
+
+        /* Movements */
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             if (Gdx.input.getX()
                     - TextureFactory.getTexRacket().getWidth() / 2
@@ -58,7 +81,35 @@ public class GameScreen extends ScreenAdapter {
         sb.setProjectionMatrix(cam.combined);
 
         sb.begin();
-        gw.draw(sb);
+        if (state.getState().equals(GameState.State.Running)) {
+            gw.draw(sb);
+        }
+        else {
+            if (state.getState().equals(GameState.State.BallLoss)) {
+                sb.draw (
+                        TextureFactory.getTexBallLose(),
+                        0,
+                        0
+                ) ;
+            }
+            else if (state.getState().equals(GameState.State.GameOver)) {
+                sb.draw (
+                        TextureFactory.getTexLose(),
+                        0,
+                        0
+                ) ;
+            }
+            else if (state.getState().equals(GameState.State.Won)) {
+                sb.draw (
+                        TextureFactory.getTexWin(),
+                        0,
+                        0
+                ) ;
+            }
+            if (!timer.isScheduled()) {
+                Timer.schedule (timer, 3) ;
+            }
+        }
         sb.end();
 
         debugRenderer.render(gw.getWorld(), cam.combined);

@@ -115,7 +115,7 @@ public class Racket {
         return pos;
     }
 
-    private void setPos(float x, float y) {
+    void setPos(float x, float y) {
         this.pos.x = x ;
         this.pos.y = y ;
     }
@@ -183,5 +183,12 @@ public class Racket {
         bodies.add(bgauche) ;
 
         return bodies ;
+    }
+
+    void reset() {
+        int widthRack  = TextureFactory.getTexRacket().getWidth() ;
+
+        bdroite.setTransform(new Vector2(pos.x + RAYON, pos.y + RAYON), 0) ;
+        bgauche.setTransform(new Vector2(pos.x + widthRack - RAYON, pos.y + RAYON), 0) ;
     }
 }

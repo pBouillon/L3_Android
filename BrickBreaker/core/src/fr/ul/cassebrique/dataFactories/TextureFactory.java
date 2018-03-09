@@ -21,6 +21,15 @@ public class TextureFactory {
     private static final Texture texRacket
             = new Texture("images/Barre.png") ;
 
+    private static final Texture texLose
+            = new Texture("images/Perte.bmp") ;
+
+    private static final Texture texBallLose
+            = new Texture("images/PerteBalle.bmp") ;
+
+    private static final Texture texWin
+            = new Texture("images/Bravo.bmp") ;
+
     private static final Texture texBack = new Texture("images/Fond.png");
 
     public static Texture getBriqueBleue () {
@@ -49,5 +58,17 @@ public class TextureFactory {
 
     public static Texture getTexBack() {
         return texBack;
+    }
+
+    public static Texture getTexLose() {
+        return texLose;
+    }
+
+    public static Texture getTexBallLose() {
+        return texBallLose;
+    }
+
+    public static Texture getTexWin() {
+        return texWin;
     }
 }

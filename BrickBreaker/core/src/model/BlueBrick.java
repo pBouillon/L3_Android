@@ -16,4 +16,9 @@ public class BlueBrick extends Brick {
                 getPosY()
         );
     }
+
+    @Override
+    void dispose(GameWorld gw) {
+        gw.getWorld().destroyBody(getBody()) ;
+    }
 }

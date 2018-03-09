@@ -74,7 +74,7 @@ public abstract class Brick {
         posY = y ;
     }
 
-    public void addPhysique(GameWorld g){
+    void addPhysique(GameWorld g){
         int heightBrick = TextureFactory.getBriqueBleue().getHeight();
         int widthBrick = TextureFactory.getBriqueBleue().getWidth();
 
@@ -105,11 +105,13 @@ public abstract class Brick {
         body.createFixture(fixtureDef1) ;
     }
 
-    public Body getBody() {
+    Body getBody() {
         return body;
     }
 
-    public void setTex(Texture tex) {
+    void setTex(Texture tex) {
         this.tex = tex;
     }
+
+    abstract void dispose(GameWorld gw) ;
 }
