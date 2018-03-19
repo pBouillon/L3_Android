@@ -3,19 +3,25 @@ package fr.ul.cassebrique.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Timer;
+import controls.Listener;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 import model.GameState;
 import model.GameWorld;
 import model.Racket;
 
+import static fr.ul.cassebrique.dataFactories.SoundFactory.*;
+
 public class GameScreen extends ScreenAdapter {
     private GameState   state ;
     private GameWorld   gw ;
     private SpriteBatch sb ;
+
+    private Sound s ;
 
     private OrthographicCamera cam;
     private Box2DDebugRenderer debugRenderer;
@@ -23,15 +29,20 @@ public class GameScreen extends ScreenAdapter {
     private Timer.Task timer ;
 
     public GameScreen() {
+        s = null ;
         gw = new GameWorld(this) ;
         sb = new SpriteBatch() ;
         state = new GameState() ;
+
+        new Listener(this) ;
 
         timer = new Timer.Task() {
             @Override
             public void run() {
                 gw.reboot (state) ;
-                state.setState(GameState.State.Running);
+                if (state.getState() != GameState.State.Pause){
+                    setGsState(GameState.State.Running);
+                }
             }
         } ;
 
@@ -45,12 +56,12 @@ public class GameScreen extends ScreenAdapter {
     private void update() {
         /* States changes */
         if (gw.isWallEmpty()) {
-            state.setState(GameState.State.Won) ;
+            setGsState(GameState.State.Won);
         }
         else if (gw.isBallLoss()) {
-            state.setState(GameState.State.BallLoss) ;
+            setGsState(GameState.State.BallLoss);
             if (gw.remainingBalls() - 1 == 0) {
-                state.setState(GameState.State.GameOver) ;
+                setGsState(GameState.State.GameOver);
             }
         }
 
@@ -73,6 +84,10 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
+    public void setGsState(GameState.State _state) {
+        state.setState(_state);
+    }
+
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -88,31 +103,41 @@ public class GameScreen extends ScreenAdapter {
             if (state.getState().equals(GameState.State.BallLoss)) {
                 sb.draw (
                         TextureFactory.getTexBallLose(),
-                        0,
-                        0
+                        TextureFactory.getTexBack().getWidth()/2 - (TextureFactory.getTexBallLose().getWidth() /2),
+                        TextureFactory.getTexBack().getHeight()/2 - (TextureFactory.getTexBallLose().getHeight()/2)
                 ) ;
+                s =  BALL_LOSS_SOUND ;
             }
             else if (state.getState().equals(GameState.State.GameOver)) {
                 sb.draw (
                         TextureFactory.getTexLose(),
-                        0,
-                        0
+                        TextureFactory.getTexBack().getWidth()/2 - (TextureFactory.getTexLose().getWidth() /2),
+                        TextureFactory.getTexBack().getHeight()/2 - (TextureFactory.getTexLose().getHeight()/2)
                 ) ;
+                s = GAME_OVER_SOUND ;
             }
             else if (state.getState().equals(GameState.State.Won)) {
                 sb.draw (
                         TextureFactory.getTexWin(),
-                        0,
-                        0
+                        TextureFactory.getTexBack().getWidth()/2 - (TextureFactory.getTexWin().getWidth() /2),
+                        TextureFactory.getTexBack().getHeight()/2 - (TextureFactory.getTexWin().getHeight()/2)
                 ) ;
+                s = WON_SOUND ;
+            }
+            else if (state.getState().equals(GameState.State.Quit)) {
+                dispose();
             }
             if (!timer.isScheduled()) {
                 Timer.schedule (timer, 3) ;
+                if (s != null) {
+                    play(.5f, s) ;
+                    s = null ;
+                }
             }
         }
         sb.end();
 
-        debugRenderer.render(gw.getWorld(), cam.combined);
+//        debugRenderer.render(gw.getWorld(), cam.combined);
 
         update();
     }
@@ -120,5 +145,11 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         super.dispose();
+        Gdx.app.exit() ;
+        System.exit(0);
+    }
+
+    public GameState getState() {
+        return state;
     }
 }

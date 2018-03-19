@@ -10,6 +10,9 @@ import fr.ul.cassebrique.views.GameScreen;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import static fr.ul.cassebrique.dataFactories.SoundFactory.HIT_RACK_SOUND;
+import static fr.ul.cassebrique.dataFactories.SoundFactory.HIT_SOUND;
+import static fr.ul.cassebrique.dataFactories.SoundFactory.play;
 import static model.Ball.RAYON;
 
 public class GameWorld {
@@ -31,7 +34,6 @@ public class GameWorld {
 
     private Fixture toDestroy ;
 
-    private int steps ;
 
     public GameWorld (GameScreen _gs) {
         gs = _gs ;
@@ -42,7 +44,6 @@ public class GameWorld {
                     true
         ) ;
 
-        steps = MIN_STEPS ;
 
         racket = new Racket(this) ;
         wall = new Wall(this) ;
@@ -89,12 +90,11 @@ public class GameWorld {
                     ) ;
                 }
 
-                if (hitten.getBody() == background.getBody()) {
-                    ++steps ;
-                }
+                if (hitten.getBody() == background.getBody()) {}
                 else if (racket.getBody().contains(hitten.getBody())) {
-                    return ;
+                    play(.5f, HIT_RACK_SOUND) ;
                 } else {
+                    play(.5f, HIT_SOUND) ;
                     toDestroy = hitten ;
                 }
             }
@@ -123,7 +123,7 @@ public class GameWorld {
 
         for (Ball b : balls) b.draw(sb) ;
 
-        for (int i = 0; i < steps; ++i)
+        for (int i = 0; i < 5; ++i)
             world.step(6,2, 0);
 
         if (toDestroy != null) {
@@ -226,7 +226,6 @@ public class GameWorld {
     }
 
     public void reboot(GameState state) {
-        steps = MIN_STEPS ;
         /* rebooting */
         if (state.getState().equals(GameState.State.BallLoss)) {
             rebootBallLose() ;
