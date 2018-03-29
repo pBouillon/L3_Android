@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Timer;
-import controls.Listener;
+import fr.ul.cassebrique.controls.Listener;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
-import model.GameState;
-import model.GameWorld;
-import model.Racket;
+import fr.ul.cassebrique.model.GameState;
+import fr.ul.cassebrique.model.GameWorld;
+import fr.ul.cassebrique.model.Racket;
 
 import static fr.ul.cassebrique.dataFactories.SoundFactory.*;
 
@@ -75,12 +75,21 @@ public class GameScreen extends ScreenAdapter {
                 gw.getRacket().update(Racket.MOV_RIGHT) ;
             }
         }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        // accéléromtetre
+        if (Gdx.input.getAccelerometerY() > 0) {
+            gw.getRacket().update(Racket.MOV_RIGHT) ;
+        }
+        else if (Gdx.input.getAccelerometerY() < 0) {
             gw.getRacket().update(Racket.MOV_LEFT) ;
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            gw.getRacket().update(Racket.MOV_RIGHT) ;
+
+        if(getState().getState().equals(GameState.State.Running)){
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                gw.getRacket().update(Racket.MOV_LEFT) ;
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                gw.getRacket().update(Racket.MOV_RIGHT) ;
+            }
         }
     }
 
@@ -146,7 +155,6 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
         Gdx.app.exit() ;
-        System.exit(0);
     }
 
     public GameState getState() {
